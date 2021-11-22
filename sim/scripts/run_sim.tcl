@@ -19,14 +19,17 @@
 ## ===============================================================================================
 
 
-vcom -work work ../golden_uart/uart_parity.vhd
-vcom -work work ../golden_uart/uart_tx.vhd
-vcom -work work ../golden_uart/uart_rx.vhd
-vcom -work work ../golden_uart/uart.vhd
-vcom -work work ../golden_uart/uart_comp.vhd
+## DO NOT UNCOMMENT THESE LINES BELOW
+#vcom -work work ../golden_uart/uart_parity.vhd
+#vcom -work work ../golden_uart/uart_tx.vhd
+#vcom -work work ../golden_uart/uart_rx.vhd
+#vcom -work work ../golden_uart/uart.vhd
+#vcom -work work ../golden_uart/uart_comp.vhd
 
 vcom -work work ../../hdl/uart_rx.vhd
 vcom -work work ../../hdl/uart_rx_comp.vhd
+vcom -work work ../../hdl/uart_tx.vhd
+vcom -work work ../../hdl/uart_tx_comp.vhd
 
 vcom -work work ../tb/uart_tb.vhd
 
