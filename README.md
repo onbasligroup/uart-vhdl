@@ -48,7 +48,17 @@ else
   uart_tx_valid <= '0';
 end if;
 ```
-
+## Directory Tree
+├── hdl
+│   ├── uart_rx_comp.vhd      -- UART rx component package. You can check sim/tb/uart_tb.vhd for usage.
+│   ├── uart_rx.vhd           -- UART rx module.
+│   ├── uart_tx_comp.vhd      -- UART tx component package. You can check sim/tb/uart_tb.vhd for usage.
+│   └── uart_tx.vhd           -- UART tx module.
+└── sim
+    ├── scripts
+    │   ├── run_sim.tcl       -- Simulation script for 3. party simulator.
+    └── tb
+        └── uart_tb.vhd       -- Example usage for both tx and rx modules. (Testbench)
 
 
 This project is under development!
