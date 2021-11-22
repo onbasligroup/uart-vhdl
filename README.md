@@ -38,7 +38,7 @@ UART implementation in VHDL
 | o_tx| std_logic | output | uart tx pin
 | o_busy| std_logic | output | '1' during the transmission process else '0'
 
-#### Timing diagram 
+#### Timing Diagram 
 ![Timing diagram for uart_tx module](https://raw.githubusercontent.com/onbasligroup/uart-vhdl/main/docs/img/tx.png)
 
 
