@@ -120,7 +120,7 @@ begin
           rx_state <= stopbit;
           o_data <= rx_reg;
           o_valid <= '1';
-        when paritybit =>
+        when paritybit => rx_state <= idle;
         when stopbit =>
           o_valid <= '0';
           if(rd_rq = '1') then
@@ -138,6 +138,7 @@ begin
   begin
     if(i_rst = '1') then
       rd_rq <= '1';
+      sampling_counter <= (others => '0');
     elsif(i_clk'event and i_clk = '1') then
       if(sampling_sync = '1') then
         sampling_counter <= (others => '0');
