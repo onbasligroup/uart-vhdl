@@ -25,15 +25,17 @@ use IEEE.numeric_std.all;
 package uart_tx_comp is
     component uart_tx is
       generic(
-        PARITY_BIT : string := "none" -- valid for "none", "even", "odd"
+        CLK_FREQ    : integer := 100e6;  -- set system clock frequency in Hz
+        BAUD_RATE   : integer := 115200; -- baud rate value
+        PARITY_BIT  : string  := "none"  -- valid for "none", "even", "odd"
       );
       port (
-        i_clk   : std_logic;
-        i_rst   : std_logic;
-        i_data  : std_logic_vector(7 downto 0);
-        i_valid : std_logic;
-        o_busy  : std_logic;
-        o_tx    : std_logic
+        i_clk   : in std_logic;
+        i_rst   : in std_logic;
+        i_data  : in std_logic_vector(7 downto 0);
+        i_valid : in std_logic;
+        o_tx    : out std_logic;
+        o_busy  : out std_logic
       );
     end component;
 end package;
