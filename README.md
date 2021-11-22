@@ -21,6 +21,18 @@ UART implementation in VHDL
 
 
 ## UART_TX Module
+Warning you cannot send multiple data one after another. You can use the condition below on your code.
+
+```
+if(uart_tx_busy = '0' and uart_tx_valid = '0') then
+  uart_tx_data <= <YOUR DATA>;
+  uart_tx_valid <= '1';
+else
+  uart_tx_valid <= '0';
+end if;
+```
+
+
 #### Generic and Port Description
 | Generic Name | Data Type | Comment
 | ------ | ------ | ------ |
