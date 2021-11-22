@@ -41,8 +41,8 @@ UART implementation in VHDL
 #### Timing diagram 
 ![Timing diagram for uart_tx module](https://raw.githubusercontent.com/onbasligroup/uart-vhdl/main/docs/img/tx.png)
 
-Warning! You cannot send multiple data one after another. You can use the condition below on your code.
 
+> Warning!: `You cannot send multiple data one after another. You can use the condition below on your code.` 
 ```
 if(uart_tx_busy = '0' and uart_tx_valid = '0') then
   uart_tx_data <= <YOUR DATA>;
