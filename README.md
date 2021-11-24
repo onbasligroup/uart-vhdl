@@ -60,7 +60,7 @@ end if;
 │   └── uart_tx.vhd           -- UART tx module.
 └── sim
     ├── scripts
-    │   ├── run_sim.tcl       -- Simulation script for 3. party simulator.
+    │   ├── run_sim.tcl       -- Simulation script for simulation.
     └── tb
         └── uart_tb.vhd       -- Example usage for both tx and rx modules. (Testbench)
 ```
