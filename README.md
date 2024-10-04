@@ -53,16 +53,17 @@ end if;
 ```
 ## Directory Tree
 ```
-├── hdl
+├── src
 │   ├── uart_rx_comp.vhd      -- UART rx component package. You can check sim/tb/uart_tb.vhd for usage.
 │   ├── uart_rx.vhd           -- UART rx module.
 │   ├── uart_tx_comp.vhd      -- UART tx component package. You can check sim/tb/uart_tb.vhd for usage.
 │   └── uart_tx.vhd           -- UART tx module.
 └── sim
-    ├── scripts
-    │   ├── run_sim.tcl       -- Simulation script for simulation.
-    └── tb
-        └── uart_tb.vhd       -- Example usage for both tx and rx modules. (Testbench)
+    └── uart_tb.vhd           -- Example usage for both tx and rx modules. (Testbench)
+├── scripts
+    ├── run_sim.tcl           -- Simulation script for simulation.
+    ├── compile_src.tcl       -- Simulation script for simulation.
+    └── compile_sim.vhd       -- Example usage for both tx and rx modules. (Testbench)
 ```
 
 This project is under development!
