@@ -1,0 +1,3 @@
+cocotb>=2.0.0
+cocotb-tools>=0.0.1
+pytest>=8.0.0
