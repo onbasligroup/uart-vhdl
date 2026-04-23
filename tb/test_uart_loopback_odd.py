@@ -18,8 +18,12 @@ async def reset_dut(dut):
 
 
 async def tx_byte(dut, value: int):
-    while int(dut.o_tx_busy.value) == 1:
+    for _ in range(5000):
+        if int(dut.o_tx_busy.value) == 0:
+            break
         await RisingEdge(dut.i_clk)
+    else:
+        raise AssertionError("TX ready timeout")
     dut.i_data.value = value
     dut.i_valid.value = 1
     await RisingEdge(dut.i_clk)

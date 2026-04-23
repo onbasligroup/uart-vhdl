@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parent.parent
 TB = ROOT / "tb"
 SRC = ROOT / "src"
 BUILD = ROOT / "build" / "cocotb"
+FORCE_REBUILD = os.environ.get("COCOTB_FORCE_REBUILD", "0") == "1"
 
 
 TEST_SPECS = [
@@ -86,7 +87,11 @@ def main() -> int:
     try:
         from cocotb_tools.runner import get_runner
     except ImportError as exc:
-        print("ERROR: cocotb-tools runner not available", exc)
+        print(
+            f"ERROR: cocotb-tools runner not available: {exc}. "
+            "Install project dependencies (for example: pip install -r requirements.txt).",
+            file=sys.stderr,
+        )
         return 1
 
     BUILD.mkdir(parents=True, exist_ok=True)
@@ -100,7 +105,7 @@ def main() -> int:
             sources=[str(p) for p in spec["vhdl"]],
             hdl_toplevel=spec["top"],
             build_dir=str(build_dir),
-            always=True,
+            always=FORCE_REBUILD,
         )
 
         runner.test(

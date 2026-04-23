@@ -10,10 +10,10 @@ if ! command -v docker >/dev/null 2>&1; then
 fi
 
 if [[ $# -eq 0 ]]; then
-  CMD="make cocotb-test"
+  CMD=(make cocotb-test)
 else
-  CMD="$*"
+  CMD=("$@")
 fi
 
 docker build -t "$IMAGE" "$ROOT_DIR"
-docker run --rm -v "$ROOT_DIR:/workspace" -w /workspace "$IMAGE" bash -lc "$CMD"
+docker run --rm -v "$ROOT_DIR:/workspace" -w /workspace "$IMAGE" "${CMD[@]}"
