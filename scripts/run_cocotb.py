@@ -2,7 +2,9 @@
 """Run uart-vhdl cocotb regressions with cocotb-tools runner."""
 
 from pathlib import Path
+import os
 import sys
+import sysconfig
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -36,6 +38,15 @@ TEST_SPECS = [
 def main() -> int:
     sys.path.insert(0, str(TB))
 
+    # cocotb's runner needs a resolvable libpython path for embedding.
+    if "LIBPYTHON_LOC" not in os.environ:
+        libdir = sysconfig.get_config_var("LIBDIR")
+        ldlib = sysconfig.get_config_var("LDLIBRARY")
+        if libdir and ldlib:
+            candidate = Path(libdir) / ldlib
+            if candidate.exists():
+                os.environ["LIBPYTHON_LOC"] = str(candidate)
+
     try:
         from cocotb_tools.runner import get_runner
     except ImportError as exc:
@@ -50,7 +61,7 @@ def main() -> int:
         build_dir.mkdir(parents=True, exist_ok=True)
 
         runner.build(
-            vhdl_sources=[str(p) for p in spec["vhdl"]],
+            sources=[str(p) for p in spec["vhdl"]],
             hdl_toplevel=spec["top"],
             build_dir=str(build_dir),
             always=True,
