@@ -114,6 +114,7 @@ This makes the develop -> main merge flow a hard quality gate with cocotb tests.
 ## Notes
 
 - PARITY_BIT now supports "none", "even", and "odd" in both TX and RX modules.
-- cocotb regression now runs parity-aware test suites and long stream loopback stress tests.
+- cocotb regression now runs parity-aware test suites, long stream loopback stress tests,
+  false-start/glitch rejection tests, reset recovery tests, and small baud-mismatch RX checks.
 
 This project is under development.

@@ -22,6 +22,12 @@ TEST_SPECS = [
         "module": "test_uart_tx",
     },
     {
+        "name": "tx_none_robustness",
+        "top": "uart_tx_wrap",
+        "vhdl": [SRC / "uart_tx.vhd", TB / "uart_tx_wrap.vhd"],
+        "module": "test_uart_tx_robustness",
+    },
+    {
         "name": "tx_even",
         "top": "uart_tx_even_wrap",
         "vhdl": [SRC / "uart_tx.vhd", TB / "uart_tx_even_wrap.vhd"],
@@ -38,6 +44,12 @@ TEST_SPECS = [
         "top": "uart_rx_wrap",
         "vhdl": [SRC / "uart_rx.vhd", TB / "uart_rx_wrap.vhd"],
         "module": "test_uart_rx",
+    },
+    {
+        "name": "rx_none_robustness",
+        "top": "uart_rx_wrap",
+        "vhdl": [SRC / "uart_rx.vhd", TB / "uart_rx_wrap.vhd"],
+        "module": "test_uart_rx_robustness",
     },
     {
         "name": "rx_even",
