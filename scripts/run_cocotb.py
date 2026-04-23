@@ -15,22 +15,58 @@ BUILD = ROOT / "build" / "cocotb"
 
 TEST_SPECS = [
     {
-        "name": "tx",
+        "name": "tx_none",
         "top": "uart_tx_wrap",
         "vhdl": [SRC / "uart_tx.vhd", TB / "uart_tx_wrap.vhd"],
         "module": "test_uart_tx",
     },
     {
-        "name": "rx",
+        "name": "tx_even",
+        "top": "uart_tx_even_wrap",
+        "vhdl": [SRC / "uart_tx.vhd", TB / "uart_tx_even_wrap.vhd"],
+        "module": "test_uart_tx_even",
+    },
+    {
+        "name": "tx_odd",
+        "top": "uart_tx_odd_wrap",
+        "vhdl": [SRC / "uart_tx.vhd", TB / "uart_tx_odd_wrap.vhd"],
+        "module": "test_uart_tx_odd",
+    },
+    {
+        "name": "rx_none",
         "top": "uart_rx_wrap",
         "vhdl": [SRC / "uart_rx.vhd", TB / "uart_rx_wrap.vhd"],
         "module": "test_uart_rx",
     },
     {
-        "name": "loopback",
+        "name": "rx_even",
+        "top": "uart_rx_even_wrap",
+        "vhdl": [SRC / "uart_rx.vhd", TB / "uart_rx_even_wrap.vhd"],
+        "module": "test_uart_rx_even",
+    },
+    {
+        "name": "rx_odd",
+        "top": "uart_rx_odd_wrap",
+        "vhdl": [SRC / "uart_rx.vhd", TB / "uart_rx_odd_wrap.vhd"],
+        "module": "test_uart_rx_odd",
+    },
+    {
+        "name": "loopback_none",
         "top": "uart_loopback_wrap",
         "vhdl": [SRC / "uart_tx.vhd", SRC / "uart_rx.vhd", TB / "uart_loopback_wrap.vhd"],
         "module": "test_uart_loopback",
+    },
+    {
+        "name": "loopback_even",
+        "top": "uart_loopback_even_wrap",
+        "vhdl": [SRC / "uart_tx.vhd", SRC / "uart_rx.vhd", TB / "uart_loopback_even_wrap.vhd"],
+        "module": "test_uart_loopback_even",
+    },
+    {
+        "name": "loopback_odd",
+        "top": "uart_loopback_odd_wrap",
+        "vhdl": [SRC / "uart_tx.vhd", SRC / "uart_rx.vhd", TB / "uart_loopback_odd_wrap.vhd"],
+        "module": "test_uart_loopback_odd",
     },
 ]
 

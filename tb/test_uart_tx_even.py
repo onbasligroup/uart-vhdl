@@ -6,6 +6,10 @@ CLK_NS = 100
 BIT_CYCLES = 100
 
 
+def even_parity_bit(value: int) -> int:
+    return bin(value).count("1") % 2
+
+
 async def reset_dut(dut):
     dut.i_rst.value = 1
     dut.i_valid.value = 0
@@ -19,59 +23,41 @@ async def reset_dut(dut):
 async def tx_byte(dut, value: int):
     while int(dut.o_busy.value) == 1:
         await RisingEdge(dut.i_clk)
-
     dut.i_data.value = value
     dut.i_valid.value = 1
     await RisingEdge(dut.i_clk)
     dut.i_valid.value = 0
 
 
-async def sample_none_frame(dut):
-    # Wait for start bit.
+async def sample_even_frame(dut):
     while int(dut.o_tx.value) == 1:
         await RisingEdge(dut.i_clk)
 
-    # Move to the center of each data bit.
     for _ in range(BIT_CYCLES + BIT_CYCLES // 2):
         await RisingEdge(dut.i_clk)
 
-    bits = []
+    data_bits = []
     for _ in range(8):
-        bits.append(int(dut.o_tx.value))
+        data_bits.append(int(dut.o_tx.value))
         for _ in range(BIT_CYCLES):
             await RisingEdge(dut.i_clk)
 
+    parity = int(dut.o_tx.value)
+    for _ in range(BIT_CYCLES):
+        await RisingEdge(dut.i_clk)
     stop = int(dut.o_tx.value)
-    return bits, stop
+    return data_bits, parity, stop
 
 
 @cocotb.test()
-async def test_tx_frame_format(dut):
+async def test_tx_even_parity_frames(dut):
     cocotb.start_soon(Clock(dut.i_clk, CLK_NS, units="ns").start())
     await reset_dut(dut)
 
-    payloads = [0x00, 0xFF, 0xA5, 0x3C, 0x81, 0x5A]
-
+    payloads = [0x01, 0x03, 0x0F, 0x55, 0xA5, 0xFE]
     for payload in payloads:
         await tx_byte(dut, payload)
-        bits, stop = await sample_none_frame(dut)
-        expected_bits = [(payload >> bit) & 1 for bit in range(8)]
-
-        assert bits == expected_bits, (
-            f"TX data mismatch payload=0x{payload:02X} expected={expected_bits} observed={bits}"
-        )
-        assert stop == 1, f"TX stop bit mismatch payload=0x{payload:02X}"
-
-
-@cocotb.test()
-async def test_tx_back_to_back_stream(dut):
-    cocotb.start_soon(Clock(dut.i_clk, CLK_NS, units="ns").start())
-    await reset_dut(dut)
-
-    stream = [i ^ 0x5A for i in range(32)]
-    for payload in stream:
-        await tx_byte(dut, payload)
-        bits, stop = await sample_none_frame(dut)
-        expected_bits = [(payload >> bit) & 1 for bit in range(8)]
-        assert bits == expected_bits
+        data_bits, parity, stop = await sample_even_frame(dut)
+        assert data_bits == [(payload >> bit) & 1 for bit in range(8)]
+        assert parity == even_parity_bit(payload), f"Unexpected parity for 0x{payload:02X}"
         assert stop == 1

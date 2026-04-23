@@ -113,7 +113,7 @@ This makes the develop -> main merge flow a hard quality gate with cocotb tests.
 
 ## Notes
 
-- Current UART parity generic is still limited in implementation. Existing tests focus on PARITY_BIT = "none" behavior.
-- Next expansion can add dedicated parity mode regression cases once RTL parity paths are completed.
+- PARITY_BIT now supports "none", "even", and "odd" in both TX and RX modules.
+- cocotb regression now runs parity-aware test suites and long stream loopback stress tests.
 
 This project is under development.

@@ -27,7 +27,7 @@ package uart_rx_comp is
       generic(
         CLK_FREQ    : integer := 100e6;  -- set system clock frequency in Hz
         BAUD_RATE   : integer := 115200; -- baud rate value
-        PARITY_BIT  : string  := "none"  -- valid for "none" for now. It is under development.
+        PARITY_BIT  : string  := "none"  -- valid for "none", "even", "odd"
       );
       port (
         i_clk   : in std_logic;
